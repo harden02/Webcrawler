@@ -9,9 +9,9 @@ def main(inputURL):
     domain = seedURL.getDomain(coercedURL)
     
     controllerInstance = controller.Controller(domain, coercedURL)
-    domainlink = controllerInstance.setupController()
-    controllerInstance.startScraping(domainlink)
-    print(f"Scraping completed. Visited URLs: {controllerInstance.visitedURLs.keys()}")
+    controllerInstance.setupController()
+    controllerInstance.startScraping(domain)
+    print(f"Scraping completed. Visited URLs: {controllerInstance.URLmap.keys()}")
 
 if __name__ == '__main__':
     inputURL = input("Please enter the URL to start scraping from: ")
