@@ -9,20 +9,25 @@ class Controller:
         self.domain = domain
         self.seedURL = seedURL
         self.jobQueue = Queue()
-        self.visitedURLs = {self.seedURL}
+        self.visitedURLs = {}
 
-    def startScraping(self):
+    def setupController(self):
         self.jobQueue.put(self.seedURL)
-        crawlerInstance = crawler.Crawler(self.domain)
+        print(f'initialized queue and visited URLs with seed URL: {self.seedURL}')
+        domainlink = "https://" + self.domain
+        pattern = fr'^{domainlink}'
+        print(f'domain url is {pattern}')
+        return pattern
+
+
+    def startScraping(self, domain):
+        crawlerInstance = crawler.Crawler(domain)
         while not self.jobQueue.empty():
             currentURL = self.jobQueue.get()
             foundURLs = crawlerInstance.scrape(currentURL)
-            domainlink = "https://" + self.domain
-            pattern = fr'^{domainlink}'
-            print(f'pattern is {pattern}')
-            for link in foundURLs:
-                if re.match(pattern, link) and link not in self.visitedURLs:
+            for link in set(foundURLs):
+                if re.match(domain, link) and link not in self.visitedURLs.keys():
                     self.jobQueue.put(link)
-                    self.visitedURLs.add(link)
-        return self.visitedURls
+            self.visitedURLs[currentURL] = foundURLs
+        return self.visitedURLs
                 

@@ -11,15 +11,15 @@ class SeedURLSetup:
     def coerceURL(self):
         if not self.url.startswith('http'):
             try:
-                abslink = urllib.parse.urljoin("https://", self.url)
+                abslink = "https://" + self.url
                 return abslink
             except ValueError:
                 print(f"Unable to coerce URL into valid format! Please try using the full link.")
                 sys.exit(1)
         return self.url
 
-    def getDomain(self):
-        domain = urllib.parse.urlparse(self.url).netloc
+    def getDomain(self, inputURL):
+        domain = urllib.parse.urlparse(inputURL).netloc
         print(f"Domain is: {domain}")
         return domain
         
