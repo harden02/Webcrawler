@@ -13,9 +13,10 @@ class Controller:
         self.URLmap = {}
 
     def setupController(self):
-        self.jobQueue.put(self.seedURL)
-        self.visitedURLs.add(self.seedURL)
-        print(f'initialized queue with seed URL: {self.seedURL}')
+        standardizedURL = self.standardizeURL(self.seedURL)
+        self.jobQueue.put(standardizedURL)
+        self.visitedURLs.add(standardizedURL)
+        print(f'initialized queue with seed URL: {standardizedURL}')
 
 
     def startScraping(self, domain):
@@ -24,9 +25,17 @@ class Controller:
             currentURL = self.jobQueue.get()
             foundURLs = crawlerInstance.scrape(currentURL)
             for link in set(foundURLs):
-                if urllib.parse.urlparse(link).netloc == domain and link not in self.visitedURLs:
-                    self.jobQueue.put(link)
-                    self.visitedURLs.add(link)
+                standardizedLink = self.standardizeURL(link)
+                if urllib.parse.urlparse(standardizedLink).netloc == domain and standardizedLink not in self.visitedURLs:
+                    self.jobQueue.put(standardizedLink)
+                    self.visitedURLs.add(standardizedLink)
             self.URLmap[currentURL] = foundURLs
         return self.URLmap
-                
+    
+    @staticmethod
+    def standardizeURL(url):
+        parsedURL = urllib.parse.urlparse(url)
+        netloc = parsedURL.netloc
+        path = parsedURL.path.rstrip('/')
+        query = urllib.parse.urlencode(sorted(urllib.parse.parse_qsl(parsedURL.query)))
+        return urllib.parse.urlunparse((parsedURL.scheme, netloc, path, '', query, ''))
