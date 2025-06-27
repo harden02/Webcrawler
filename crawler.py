@@ -5,6 +5,9 @@ import urllib.parse
 
 
 class Crawler:
+    """
+    A web crawler that scrapes a given URL and returns a list of URLs found on that page. Kept separate to allow for possible multithreading in future.
+    """
 
     def __init__(self, domain, failoverAction):
         self.domain = domain
@@ -15,6 +18,7 @@ class Crawler:
             Scrapes the given URL and returns a list of the URLs found as a list.
             If the URL request fails, it either passes out an empty list to allow the crawler to continue or raises an error and terminates the program
             """
+            #get the URL
             try:
                 rawPage = requests.get(url)
             except requests.RequestException as e:
@@ -25,8 +29,10 @@ class Crawler:
                  elif self.failoverAction == 'stop':
                       print(f'terminating due to errror')
                       raise
+            #parse the page and find all the links on the page
             soup = BeautifulSoup(rawPage.text, 'html')
             foundURLs = [urllib.parse.urljoin(f'https://{self.domain}', link['href']) for link in soup.find_all('a', href=True)]
+            #print out the base URL and URLs present on the base URL's page
             print(f"Base URL is : {url}, found URLs: {foundURLs}")
             return foundURLs
             
