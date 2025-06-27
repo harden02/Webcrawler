@@ -30,7 +30,7 @@ class Crawler:
                       print(f'terminating due to errror')
                       raise
             #parse the page and find all the links on the page
-            soup = BeautifulSoup(rawPage.text, 'html')
+            soup = BeautifulSoup(rawPage.text, 'lxml')
             foundURLs = [urllib.parse.urljoin(f'https://{self.domain}', link['href']) for link in soup.find_all('a', href=True)]
             #print out the base URL and URLs present on the base URL's page
             print(f"Base URL is : {url}, found URLs: {foundURLs}")
