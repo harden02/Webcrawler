@@ -24,7 +24,8 @@ optional arguments:
 ```
 Example run:
   ```bash
-  python main.py google.com continue y
+  python main.py google.com cont![Crawler drawio](https://github.com/user-attachments/assets/16a369e1-c45e-412c-a27b-f7fc591894df)
+inue y
   ```
   This will run with a continue on connection failure and will force URL standardization
   
@@ -39,3 +40,5 @@ To run unit tests from the base directory:
   ```bash
   python -m unittest tests/testname.py
   ```
+## Application design diagram
+![Crawler drawio](https://github.com/user-attachments/assets/5477c27b-da38-4343-9b93-0e4cc8805b81)
