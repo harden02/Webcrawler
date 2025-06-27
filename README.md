@@ -23,7 +23,7 @@ optional arguments:
 ```
 Example run:
   ```bash
-  python main.py https://astroviewer.net/ continue y
+  python main.py google.com continue y
   ```
   This will run with a continue on connection failure and will force URL standardization
   
