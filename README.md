@@ -10,7 +10,8 @@ Scraping completed. Visited URLs: dict_keys([URLs found])
 ```
 
 ## Usage
-Make sure you have all of the packages installed from the requirements.txt, and python 3.12 or later
+Make sure you have all of the packages installed from the requirements.txt, and python 3.12 or later.
+Run from the app's base directory in your terminal.
 
 arguments:
 ```bash
