@@ -1,7 +1,17 @@
 # Webcrawler
 A simple web crawler which goes through the in domain links on a given website, and prints out the links that are present. It also returns a dictionary of the links for easy analysis/retrieval. Made for the Monzo take-home test.
+Output is in the form:
+```bash
+Base URL is : URL, found URLs: [URl1, URL2, ...]
+```
+Upon completion, it will return a dict of these URL to found URL relations and print out the URL keys that were visited:
+```bash
+Scraping completed. Visited URLs: dict_keys([URLs found])
+```
 
 ## Usage
+Make sure you have all of the packages installed from the requirements.txt, and python 3.12 or later
+
 arguments:
   inputURL                   The initial URL at which to start crawling. Format must be https://domain.com or domain.com
 
