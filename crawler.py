@@ -1,18 +1,26 @@
 import requests
 from bs4 import BeautifulSoup
 import urllib.parse 
-from queue import Queue
-import re
 
 
 
 class Crawler:
 
-    def __init__(self, domain):
+    def __init__(self, domain, failoverAction):
         self.domain = domain
+        self.failoverAction = failoverAction
 
     def scrape(self, url):
-            rawPage = requests.get(url)
+            try:
+                rawPage = requests.get(url)
+            except requests.RequestException as e:
+                 print(f"Unable to fetch URL {url}: {e}")
+                 if self.failoverAction == 'continue':
+                      print(f"skipping to next URL, current URL returned error")
+                      return []
+                 elif self.failoverAction == 'stop':
+                      print(f'terminating due to errror')
+                      raise
             soup = BeautifulSoup(rawPage.text, 'html')
             foundURLs = [urllib.parse.urljoin(f'https://{self.domain}', link['href']) for link in soup.find_all('a', href=True)]
             print(f"Base URL is : {url}, found URLs: {foundURLs}")
