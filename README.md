@@ -15,8 +15,9 @@ Make sure you have all of the packages installed from the requirements.txt, and 
 arguments:
 ```bash
   inputURL                   The initial URL at which to start crawling. Format must be https://domain.com or domain.com
-
+```
 optional arguments:
+```bash
   connectionfailure          What to do if the crawler is unable to retrieve a URL, continue to pass on to other URLs in the queue, stop to terminate with an error
   forcestandardURL           force standardization of URLs and their query parameters to avoid revisiting pages, y/n
 ```
