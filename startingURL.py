@@ -1,4 +1,5 @@
 import urllib.parse
+import re
 
 class SeedURLSetup:
    
@@ -7,27 +8,29 @@ class SeedURLSetup:
 
     def coerceURL(self):
         """ 
-        Coerce the URL into a standard format, ensuring it starts with 'http://' or 'https://
-        if the URL is malformed, raise an error.
+        Coerce the URL into a standard format, ensuring it starts with 'http://' or 'https:// and running a regex check.
+        If the URL is malformed, raise an error.
         """
         if not self.url.startswith('http'):
-            try:
                 abslink = "https://" + self.url
-                return abslink
-            except ValueError:
-                print(f"Unable to coerce URL into valid format! Please try using the full link.")
-                raise
-        return self.url
+        else:
+            abslink = self.url
+        pattern = re.compile(r'^(https?://)?[a-zA-Z0-9.-]+(?:\.[a-zA-Z]{2,})')
+        if pattern.match(abslink):
+             print(f"Coerced URL is: {abslink}")
+             return abslink
+        else:
+            raise ValueError(f"Unable to coerce URL into valid format! Please provide the URL as either a full link or a domain name. URL provided: {self.url}")
 
     def getDomain(self, inputURL):
         """
         Extract the domain from the input URL.
         """
-        try:
-            domain = urllib.parse.urlparse(inputURL).netloc
+        domain = urllib.parse.urlparse(inputURL).netloc
+        if domain:
             print(f"Domain is: {domain}")
             return domain
-        except ValueError:
-            print(f"unable to extract domain from URL: {inputURL}")
-            raise 
+        else:
+            raise ValueError(f"Unable to extract domain from URL: {inputURL}")
+ 
         

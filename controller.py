@@ -1,5 +1,5 @@
 from queue import Queue
-import crawler
+from crawler import Crawler
 import urllib.parse
 
 class Controller:
@@ -29,7 +29,8 @@ class Controller:
         Manages the queue of URLs and sorts the crawler returned URLs into the visited set and queue if they aren't seen before and in domain.
         Continues until the queue is empty.
         """
-        crawlerInstance = crawler.Crawler(domain, self.failoverAction)
+        crawlerInstance = Crawler(domain, self.failoverAction)
+        print(f"domain to crawl is: {domain}")
         while not self.jobQueue.empty():
             currentURL = self.jobQueue.get()
             foundURLs = crawlerInstance.scrape(currentURL)

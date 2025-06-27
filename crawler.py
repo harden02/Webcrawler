@@ -11,6 +11,10 @@ class Crawler:
         self.failoverAction = failoverAction
 
     def scrape(self, url):
+            """
+            Scrapes the given URL and returns a list of the URLs found as a list.
+            If the URL request fails, it either passes out an empty list to allow the crawler to continue or raises an error and terminates the program
+            """
             try:
                 rawPage = requests.get(url)
             except requests.RequestException as e:
