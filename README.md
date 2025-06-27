@@ -13,12 +13,13 @@ Scraping completed. Visited URLs: dict_keys([URLs found])
 Make sure you have all of the packages installed from the requirements.txt, and python 3.12 or later
 
 arguments:
+```bash
   inputURL                   The initial URL at which to start crawling. Format must be https://domain.com or domain.com
 
 optional arguments:
   connectionfailure          What to do if the crawler is unable to retrieve a URL, continue to pass on to other URLs in the queue, stop to terminate with an error
   forcestandardURL           force standardization of URLs and their query parameters to avoid revisiting pages, y/n
-
+```
 Example run:
   ```bash
   python main.py https://astroviewer.net/ continue y
