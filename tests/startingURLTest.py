@@ -1,7 +1,7 @@
 import unittest
 import sys
 sys.path.append('..') #higher directory to import the application code
-from app.startingURL import SeedURLSetup
+from startingURL import SeedURLSetup
 
 
 class testStartingURL(unittest.TestCase):
